@@ -16,6 +16,8 @@
 		25FE4E5A2B04224800709C2C /* MobileAPI_Assignment3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE4E592B04224800709C2C /* MobileAPI_Assignment3Tests.swift */; };
 		25FE4E642B04224800709C2C /* MobileAPI_Assignment3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE4E632B04224800709C2C /* MobileAPI_Assignment3UITests.swift */; };
 		25FE4E662B04224800709C2C /* MobileAPI_Assignment3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE4E652B04224800709C2C /* MobileAPI_Assignment3UITestsLaunchTests.swift */; };
+		25FE4E732B04306C00709C2C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE4E722B04306C00709C2C /* RegisterViewController.swift */; };
+		25FE4E752B04312600709C2C /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE4E742B04312600709C2C /* BooksTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		25FE4E5F2B04224800709C2C /* MobileAPI-Assignment3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MobileAPI-Assignment3UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25FE4E632B04224800709C2C /* MobileAPI_Assignment3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileAPI_Assignment3UITests.swift; sourceTree = "<group>"; };
 		25FE4E652B04224800709C2C /* MobileAPI_Assignment3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileAPI_Assignment3UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		25FE4E722B04306C00709C2C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		25FE4E742B04312600709C2C /* BooksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				25FE4E4B2B04224700709C2C /* Assets.xcassets */,
 				25FE4E4D2B04224700709C2C /* LaunchScreen.storyboard */,
 				25FE4E502B04224700709C2C /* Info.plist */,
+				25FE4E722B04306C00709C2C /* RegisterViewController.swift */,
+				25FE4E742B04312600709C2C /* BooksTableViewCell.swift */,
 			);
 			path = "MobileAPI-Assignment3";
 			sourceTree = "<group>";
@@ -259,8 +265,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				25FE4E472B04224600709C2C /* ViewController.swift in Sources */,
+				25FE4E752B04312600709C2C /* BooksTableViewCell.swift in Sources */,
 				25FE4E432B04224600709C2C /* AppDelegate.swift in Sources */,
 				25FE4E452B04224600709C2C /* SceneDelegate.swift in Sources */,
+				25FE4E732B04306C00709C2C /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
