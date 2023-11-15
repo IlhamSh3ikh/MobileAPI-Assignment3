@@ -38,23 +38,45 @@ class RegisterViewController: UIViewController
         registerUser(firstname: firstname, lastname: lastname, username: username, password: password) {result in
             switch result {
             case .success(let data):
-                // Handle successful response
-                print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
-                
-                let alertController = UIAlertController(title: "Success", message: "User Registered!", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                    ViewController().ClearLoginTextFields() // Clear text fields and set focus to username
-                })
+                do {
+                    // Try to parse the JSON data
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        // Check if the JSON contains an "error" property
+                        if let errorMessage = json["error"] as? String {
+                            print("API Error: \(errorMessage)")
 
-                DispatchQueue.main.async
-                {
-                    self.present(alertController, animated: true)
-                    self.dismiss(animated: true, completion: nil)
+                            // Show error in alert
+                            DispatchQueue.main.async {
+                                self.displayErrorMessage(message: errorMessage)
+                            }
+                        } else {
+                            // Handle successful response
+                            print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
+                            
+                            let alertController = UIAlertController(title: "Success", message: "User Registered!", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                                ViewController.shared?.ClearLoginTextFields() // Clear text fields and set focus to username
+                            })
+
+                            DispatchQueue.main.async
+                            {
+                                self.present(alertController, animated: true)
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    } else {
+                        // JSON parsing fails
+                        print("Error parsing JSON")
+                        
+                    }
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                    // Handle the case where JSON parsing throws an exception
                 }
                 
             case .failure(let error):
                 // Handle error
-                ViewController.shared?.displayErrorMessage(message: error.localizedDescription)
+                self.displayErrorMessage(message: error.localizedDescription)
                     print("Error: \(error.localizedDescription)")
                 }
         }
@@ -101,9 +123,23 @@ class RegisterViewController: UIViewController
         task.resume()
     }
 
-        @IBAction func CancelButton_Pressed(_ sender: UIButton) {
-            ViewController.shared?.ClearLoginTextFields()
-            dismiss(animated: true, completion: nil)
+    @IBAction func CancelButton_Pressed(_ sender: UIButton) {
+        ViewController.shared?.ClearLoginTextFields()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func displayErrorMessage(message: String)
+        {
+            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                ViewController.shared?.ClearLoginTextFields() // Clear text fields and set focus to username
+            })
+            
+            DispatchQueue.main.async
+            {
+                self.present(alertController, animated: true)
+            }
         }
     }
 

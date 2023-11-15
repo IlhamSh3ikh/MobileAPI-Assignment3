@@ -94,21 +94,44 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // API call for authentication
             loginUser(username: username, password: password) { result in
                 switch result {
+                
                 case .success(let data):
-                    // Handle successful response
-                    print("Login Response data: \(String(data: data, encoding: .utf8) ?? "")")
-                    
-                    //Uncomment After Book List is complete
-    //                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    //                let newViewController = storyBoard.instantiateViewController(withIdentifier:"TVShowFirestoreCRUDViewController")
-    //                newViewController.modalPresentationStyle = .fullScreen
-    //                newViewController.isModalInPresentation = true
-    //                self.present(newViewController, animated: true, completion: nil)
+                    do {
+                        // Try to parse the JSON data
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            // Check if the JSON contains an "error" property
+                            if let errorMessage = json["error"] as? String {
+                                print("API Error: \(errorMessage)")
+
+                                // Show error in alert
+                                DispatchQueue.main.async {
+                                    self.displayErrorMessage(message: errorMessage)
+                                }
+                            } else {
+                                // Handle success and navigate to BookListViewController
+                                print("API Success: \(json)")
+                                
+                                //Navigate to BookListViewController (UNCOMMENT)
+//                                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                                let newViewController = storyBoard.instantiateViewController(withIdentifier:"BookListViewController")
+//                                newViewController.modalPresentationStyle = .fullScreen
+//                                newViewController.isModalInPresentation = true
+//                                self.present(newViewController, animated: true, completion: nil)
+                            }
+                        } else {
+                            // JSON parsing fails
+                            print("Error parsing JSON")
+                            
+                        }
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                        // Handle the case where JSON parsing throws an exception
+                    }
 
                 case .failure(let error):
                     // Handle error and display alert
-                    self.displayErrorMessage(message: error.localizedDescription)
                     print("Login Error: \(error.localizedDescription)")
+                    self.displayErrorMessage(message: error.localizedDescription)
                 }
             }
         }
@@ -147,6 +170,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 completion(.failure(NSError(domain: "No data received", code: 0, userInfo: nil)))
                 return
             }
+            
 
             completion(.success(data))
         }
